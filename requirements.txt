@@ -1,0 +1,15 @@
+# Web framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+
+# Settings management
+pydantic-settings==2.6.1
+pydantic==2.9.2
+
+# GLiClass classifier (HuggingFace, no API key needed)
+gliclass>=0.1.18
+transformers>=4.40.0
+torch>=2.2.0
+
+# HTTP client (forwarding helper)
+httpx==0.28.0
