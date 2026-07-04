@@ -1,23 +1,21 @@
 """
-services/url_resolver.py – maps a ServiceClass to its downstream URL.
+url_resolver.py – maps class name to downstream service URL.
+Falls back to RAG URL for unknown classes.
 """
-from app.models.schemas import ServiceClass
 from app.core.config import get_settings
 
 _settings = get_settings()
 
-_URL_MAP = {
-    ServiceClass.SUMMARY:   lambda: _settings.summary_service_url,
-    ServiceClass.MCQ:       lambda: _settings.mcq_service_url,
-    ServiceClass.FLASHCARD: lambda: _settings.flashcard_service_url,
-    ServiceClass.TTS:       lambda: _settings.tts_service_url,
-    ServiceClass.PLAN:      lambda: _settings.plan_service_url,
-    ServiceClass.RAG:       lambda: _settings.rag_service_url,
+_URL_MAP: dict[str, str] = {
+    "summary":   "summary_service_url",
+    "mcq":       "mcq_service_url",
+    "flashcard": "flashcard_service_url",
+    "tts":       "tts_service_url",
+    "plan":      "plan_service_url",
+    "rag":       "rag_service_url",
 }
 
 
-def resolve_url(cls: ServiceClass) -> str:
-    resolver = _URL_MAP.get(cls)
-    if resolver is None:
-        return _settings.rag_service_url
-    return resolver()
+def resolve_url(class_name: str) -> str:
+    attr = _URL_MAP.get(class_name, "rag_service_url")
+    return getattr(_settings, attr, _settings.rag_service_url)

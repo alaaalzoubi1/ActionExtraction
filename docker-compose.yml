@@ -12,8 +12,9 @@ services:
     env_file:
       - .env
     volumes:
-      # Persist the downloaded HuggingFace model between container restarts
+      - ./models:/app/models
       - hf_cache:/app/.cache/huggingface
+      - db_data:/app/data
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c",
@@ -21,7 +22,8 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 60s   # give the model time to load on first boot
+      start_period: 60s
 
 volumes:
   hf_cache:
+  db_data:

@@ -1,0 +1,18 @@
+{
+  "id2label": {
+    "0": "summary",
+    "1": "mcq",
+    "2": "flashcard",
+    "3": "tts",
+    "4": "plan",
+    "5": "rag"
+  },
+  "label2id": {
+    "summary": 0,
+    "mcq": 1,
+    "flashcard": 2,
+    "tts": 3,
+    "plan": 4,
+    "rag": 5
+  }
+}
