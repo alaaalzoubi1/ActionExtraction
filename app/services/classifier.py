@@ -67,7 +67,8 @@ def classify(request: ClassifyRequest) -> ClassifyResponse:
     best_id = int(torch.argmax(logits, dim=1).item())
     detected_name = id2label.get(best_id, "rag")
     confidence = round(probs[best_id], 4)
-
+    if confidence <= 0.4:
+        detected_name = "rag"
     logger.info("MiniLM → %s (confidence: %.4f)", detected_name, confidence)
 
     return ClassifyResponse(
