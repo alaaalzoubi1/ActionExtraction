@@ -25,8 +25,14 @@ RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
 WORKDIR /app
 
+# Copy installed packages from builder
 COPY --from=builder /install /usr/local
+
+# Copy application source
 COPY app/ ./app/
+
+# Copy fine-tuned model
+COPY training/ ./training/
 
 ENV HF_HOME=/app/.cache/huggingface
 

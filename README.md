@@ -127,7 +127,7 @@ weighted avg       1.00      1.00      1.00       450
 
 ### Confusion Matrix
 
-![Confusion Matrix](app/training/model/confusion_matrix.png)
+![Confusion Matrix](training/model/confusion_matrix.png)
 
 Zero misclassifications across all 6 classes on the validation set.
 
