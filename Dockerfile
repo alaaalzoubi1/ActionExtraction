@@ -25,16 +25,15 @@ RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
 WORKDIR /app
 
-# Copy installed packages from builder
 COPY --from=builder /install /usr/local
-
-# Copy application source only (no tests, no docs)
 COPY app/ ./app/
 
-# HuggingFace cache lives inside the container; mount a volume in production
-# to avoid re-downloading the model on every restart.
 ENV HF_HOME=/app/.cache/huggingface
-RUN mkdir -p /app/.cache/huggingface && chown appuser /app/.cache/huggingface
+
+RUN mkdir -p \
+    /app/.cache/huggingface \
+    /app/data \
+ && chown -R appuser:appgroup /app
 
 USER appuser
 
